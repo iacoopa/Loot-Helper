@@ -1,9 +1,12 @@
 extends layout
 
+script.
+    username="#{user}";
+
 block content
     h1 Loot Helper
-    if user 
-        p Welcome, #{user}. view 
+    if char 
+        p Welcome, #{char}. view 
             a#btnOwnSessions(href='#') your sessions
             |  or 
             a#btnLogout(href='/logout') logout
@@ -18,7 +21,7 @@ block content
     // Wrapper
     #wrapper
         // ADD USER
-        if user
+        if char
             #createSession
                 h2 Create Session
                 fieldset
