@@ -41,6 +41,7 @@ router.post('/createsession', function(req, res) {
     var db = req.db;
     var collection = db.get('sessionlist');
     var newSession = {
+        'sid': req.body.sid,
         'server': req.body.server,
         'instance': req.body.instance,
         'leader': req.cookies.charname,
@@ -52,9 +53,9 @@ router.post('/createsession', function(req, res) {
         col = db.get('memberlist');
         for (var i = 0; i < 8; i++) {
             var newMember = {
+                'sid': req.body.sid,
                 'name': '',
-                'loot': '',
-                'sid': result._id
+                'loot': ''
             }
             console.log(newMember);
             col.insert(newMember);
