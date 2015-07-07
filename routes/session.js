@@ -16,6 +16,15 @@ router.get('/sessionlist/:server', function(req, res) {
             res.json(docs);
         });   
     }
+});'
+
+router.get('/sessionlist/:username', function(req, res) {
+   var db = req.db;
+   var username = req.params.username;
+   var collection = db.get('sessionlist');
+   collection.find({owner:username}, {}, function(e, docs) {
+      res.json(docs); 
+   });
 });
 
 router.get('/sessionlist', function(req, res) {
