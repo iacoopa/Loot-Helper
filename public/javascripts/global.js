@@ -14,8 +14,8 @@ $(document).ready(function() {
     });
     $('#btnCreateUser').on('click', createUser);
     $('#btnLogin').on('click', login);
-    if (username) {
-        $('#btnOwnSessions').on('click', username);
+    if (user) {
+        $('#btnOwnSessions').on('click', user);
     }
 });
 
