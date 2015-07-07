@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 Register
+    p Register to use Loot Helper's services
+    
+    #wrapper
+        #createSession
+            h2 Create Account
+            fieldset
+                input#inputUserName(type='text', placeholder='Username')
+                br
+                input#inputPassword(type='password', placeholder='Password')
+                br
+                input#reinputPassword(type='password', placeholder='Re-enter password')
+                br
+                input#inputCharName(type='text', placeholder='Character Name')
+                br
+                button#btnCreateUser Register

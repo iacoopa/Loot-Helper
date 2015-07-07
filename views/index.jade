@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    h1 Loot Helper
+    p Never have problems with calling loot again
+
+    // Wrapper
+    #wrapper
+
+        // USER INFO
+        #sessionInfo
+            h2 Session Info
+            table
+                thead  
+                    th Name
+                    th Class
+                    th Loot
+                tbody
+                    tr
+                        td(class='noSessions' colspan='3') No session is currently selected.
+        // /USER INFO
+
+        // USER LIST
+        h2 Session List 
+        #sessionList
+            table
+                thead
+                    th: include serverlist
+                    th Instance
+                    th Owner
+                tbody
+        // /USER LIST
+
+        // ADD USER
+        #createSession
+            h2 Create Session
+            fieldset
+                include createserverlist
+                br
+                include instancelist
+                br
+                input#inputLeaderName(type='text', placeholder='Leader')
+                br
+                button#btnCreateSession Create Session
+        // /ADD USER
+
+    // /WRAPPER

@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    h1 Loot Helper
+    p Never have problems with calling loot again
+
+    // Wrapper
+    #wrapper
+        // ADD USER
+        #createSession
+            h2 Create Session
+            fieldset
+                include createserverlist
+                br
+                input#inputInstance(type='text', placeholder='Instance')
+                br
+                input#inputLeaderName(type='text', placeholder='Leader')
+                br
+                button#btnCreateSession Create Session
+        // /ADD USER
+        // USER LIST
+        h2 Session List 
+        #sessionList
+            table
+                thead
+                    th: include serverlist
+                    th Instance
+                    th Owner
+                tbody
+        // /USER LIST
+
+        
+
+    // /WRAPPER

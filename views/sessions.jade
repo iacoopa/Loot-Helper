@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1 Loot Helper
+    if user 
+        p Welcome, #{user}. view 
+            a#ownSessions(href='#') your sessions
+            |  or 
+            a#logout(href='/logout') logout
+            | .
+    p Never have problems with calling loot again. 
+        unless user
+            a#login(href='/login') Login
+            |  or 
+            a#register(href='/register') register
+            | .
+
+    // Wrapper
+    #wrapper
+        // ADD USER
+        if user
+            #createSession
+                h2 Create Session
+                fieldset
+                    include createserverlist
+                    br
+                    include instancelist
+                    br
+                    button#btnCreateSession Create Session
+            // /ADD USER
+        // USER LIST
+        h2 Session List 
+        #sessionList
+            table
+                thead
+                    th: include serverlist
+                    th Instance
+                    th Leader
+                tbody
+        // /USER LIST
+
+        
+
+    // /WRAPPER

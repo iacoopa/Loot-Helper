@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    h1 Login
+    p Login to Loot Helper
+    
+    #wrapper
+        #createSession
+            h2 Login
+            fieldset
+                input#inputUserName(type='text', placeholder='Username')
+                br
+                input#inputPassword(type='password', placeholder='Password')
+                br
+                button#btnLogin Login

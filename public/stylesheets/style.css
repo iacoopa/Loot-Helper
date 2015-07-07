@@ -1,0 +1,135 @@
+body {
+padding: 30px;
+font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+margin:0 0 .5em 0;
+}
+
+a {
+color: #00B7FF;
+}
+
+#wrapper {
+}
+
+#createSession input, button, select{
+    padding: 2px;
+    margin: 2px;
+}
+
+.noSessions {
+color: #95a5a6;
+}
+
+#sessionList {
+margin:0 0 30px 0;
+
+}
+
+#sessionList table {
+border-collapse:separate;
+border-spacing:1px;
+background:#CCC;
+}
+
+#sessionList table th {
+background:#EEE;
+font-weight:600;
+padding:10px 20px;
+text-align:center;
+}
+
+#sessionList table tbody {
+padding:0; margin:0;
+border-collapse:collapse;
+border-spacing:0px;
+}
+
+#sessionList table td {
+background:#FFF;
+padding:5px 10px;
+text-align:center;
+}
+
+#inputServerName {
+width: 100%;
+}
+
+#inputInstanceName {
+width: 100%;
+}
+
+#createSession {
+width: 250px;
+}
+
+#sessionInfo {
+width:250px;
+}
+
+#createSession input {
+width: 250px;
+}
+
+#sessionInfo p {
+padding:15px;
+border:1px solid #CCC;
+background:rgba(80,120,255,0.05);
+}
+
+#sessionInfo table {
+border-collapse:separate;
+border-spacing: 1px;
+background: #CCC;
+}
+
+#sessionInfo table th {
+background:#EEE;
+font-weight:600;
+padding:10px 20px;
+text-align:center;
+}
+
+#sessionInfo table tbody {
+padding:0; margin:0;
+border-collapse:collapse;
+border-spacing:0px;
+}
+
+#sessionInfo table td {
+background:#FFF;
+padding:5px 10px;
+text-align:center;
+}
+
+#memberList table {
+border-collapse:separate;
+border-spacing: 1px;
+background: #CCC;
+}
+
+#memberList table th {
+background:#EEE;
+font-weight:600;
+padding:10px 20px;
+text-align:center;
+}
+
+#memberList table tbody {
+padding:0; margin:0;
+border-collapse:collapse;
+border-spacing:0px;
+}
+
+#memberList table td {
+background:#FFF;
+padding:5px 10px;
+text-align:center;
+}
+
+fieldset {
+border:0;
+padding:0; margin:0;
+}
