@@ -151,7 +151,12 @@ function login(event) {
     }
 };
 
-// Add User
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+}
+
 function createSession(event) {
     event.preventDefault();
 
@@ -163,11 +168,12 @@ function createSession(event) {
 
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
-
+        var sid = randomString(6, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
         // If it is, compile all user info into one object
         var newSession = {
             'server': $('#createSession fieldset select#inputServerName option:selected').text(),
-            'instance': $('#createSession fieldset select#inputInstanceName option:selected').text()
+            'instance': $('#createSession fieldset select#inputInstanceName option:selected').text(),
+            'sid':sid
         }
 
         // Use AJAX to post the object to our adduser service
