@@ -14,7 +14,7 @@ $(document).ready(function() {
     });
     $('#btnCreateUser').on('click', createUser);
     $('#btnLogin').on('click', login);
-
+    $('#btnOwnSessions').on('click', )
 });
 
 // Functions =============================================================
@@ -24,16 +24,26 @@ function populateUserTable() {
 };
 
 // Fill table with data
-function populateTable() {
+function populateTable(username) {
+
+    username = typeof username !== 'undefined' ? username : '';
 
     // Empty content string 
     var tableContent = '';
     server = $('#serverlist option:selected').text();
-    console.log(server);
     // jQuery AJAX call for JSON
-    $.getJSON( '/session/sessionlist/' + server, function( data ) {
+    if (username != '') {
+        url = '/session/sessionlist/' + username;
+    } else {
+        url = '/session/sessionlist/' + server;
+    }
+    $.getJSON(url , function( data ) {
         if (data.length == 0) {
-            tableContent += '<tr><td class="noSessions" colspan="3">No active sessions for this server.</td></tr>';
+            if (username != '') {
+                tableContent += '<tr><td class="noSessions" colspan="3">You have no active sessions.</td></tr>';
+            } else {
+                tableContent += '<tr><td class="noSessions" colspan="3">No active sessions for this server.</td></tr>';
+            }
         }
         userListData = data;
         // For each item in our JSON, add a table row and cells to the content string
