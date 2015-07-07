@@ -4,9 +4,9 @@ block content
     h1 Loot Helper
     if user 
         p Welcome, #{user}. view 
-            a#ownSessions(href='#') your sessions
+            a#btnOwnSessions(href='#') your sessions
             |  or 
-            a#logout(href='/logout') logout
+            a#btnLogout(href='/logout') logout
             | .
     p Never have problems with calling loot again. 
         unless user
