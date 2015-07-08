@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     // Populate the user table on initial page load
     populateTable();
-    $('#sessionList table tbody').on('click', 'td a.linkshowsession', showSessionInfo);
+    //('#sessionList table tbody').on('click', 'td a.linkshowsession', showSessionInfo);
     $('#btnCreateSession').on('click', createSession);
     $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteSession);
     $('#serverlist').change(function() {
@@ -14,15 +14,35 @@ $(document).ready(function() {
     });
     $('#btnCreateUser').on('click', createUser);
     $('#btnLogin').on('click', login);
-    if (user) {
-        $('#btnOwnSessions').on('click', user);
+    if (typeof user != 'undefined') {
+        $('#btnOwnSessions').on('click', function() {
+            if ($('#btnOwnSessions').text() == "your sessions") {
+                $('#btnOwnSessions').html('all sessions');
+                populateTable(user);
+                $('#header').html("Your Sessions");
+            } else {
+                $('#btnOwnSessions').html('your sessions');
+                populateTable();
+                $('#header').html("Session List");
+            }
+        });
     }
+    populateUserTable();
+    $('#btnUpdate').on('click', update);
 });
 
-// Functions =============================================================
-
 function populateUserTable() {
+    var tableContent = '';
+    id = window.location.href.split("/")[4];
     
+    $.getJSON('/party/memberlist/' + id, function(data) {
+        var i = 0;
+        $.each(data, function() {
+           i++;
+           tableContent += '<tr><td><input id="name' + i + '" input type="text" value="' + (typeof data['name'] != 'undefined' ? data['name'] : '') + '"></td><td><input id="loot' + i + '" type="text" value="' + (typeof data['loot'] != 'undefined' ? data['loot'] : '') + '"></td></tr>';
+        });
+        $('#memberList table tbody').html(tableContent);
+    });
 };
 
 // Fill table with data
@@ -35,7 +55,7 @@ function populateTable(username) {
     server = $('#serverlist option:selected').text();
     // jQuery AJAX call for JSON
     if (username != '') {
-        url = '/session/sessionlist/' + username;
+        url = '/session/usersessionlist';
     } else {
         url = '/session/sessionlist/' + server;
     }
@@ -51,7 +71,7 @@ function populateTable(username) {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="/party/' + this._id + '">' + this.server + '</a></td>';
+            tableContent += '<td><a href="/party/' + this.sid + '">' + this.server + '</a></td>';
             tableContent += '<td>' + this.instance + '</td>';
             if (1) {
                 tableContent += '<td>' + this.leader + '</td>';
@@ -62,24 +82,6 @@ function populateTable(username) {
         // Inject the whole content string into our existing HTML table
         $('#sessionList table tbody').html(tableContent);
     });
-};
-
-function showSessionInfo(event) {
-    event.preventDefault();
-    var thisID = $(this).attr('rel');
-    var tableContent = ''
-    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem._id; }).indexOf(thisID);
-    console.log(userListData);
-    var thisSessionObject = userListData[arrayPosition];
-   
-    $.getJSON('/session/userlist/' + thisID, function(data) {
-        $.each(data, function() {
-           //tableContent 
-        });
-    });
-    
-    $('#sessionInfo table tbody').html(tableContent)
-    
 };
 
 function createUser(event) {
@@ -117,6 +119,33 @@ function createUser(event) {
     } else {
         return false;
     }
+};
+
+function update(event) {
+    event.preventDefault();
+    
+    var dataToSend = {"data":[
+        {"1": [{"name": $("#name1").val()}, {"loot": $("#loot1").val()}]},
+        {"2": [{"name": $("#name2").val()}, {"loot": $("#loot2").val()}]},
+        {"3": [{"name": $("#name3").val()}, {"loot": $("#loot3").val()}]},
+        {"4": [{"name": $("#name4").val()}, {"loot": $("#loot4").val()}]},
+        {"5": [{"name": $("#name5").val()}, {"loot": $("#loot5").val()}]},
+        {"6": [{"name": $("#name6").val()}, {"loot": $("#loot6").val()}]},
+        {"7": [{"name": $("#name7").val()}, {"loot": $("#loot7").val()}]},
+        {"8": [{"name": $("#name8").val()}, {"loot": $("#loot8").val()}]}
+    ]}
+    
+    console.log(dataToSend);
+    id = window.location.href.split("/")[4];
+    $.ajax({
+      type: 'POST',
+      data: dataToSend,
+      url: '/party/update/' + id,
+      dataType: 'JSON'
+    }).done(function(response) {
+        populateUserTable();
+    });
+  
 };
 
 function login(event) {

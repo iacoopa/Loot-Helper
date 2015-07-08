@@ -16,13 +16,15 @@ router.get('/sessionlist/:server', function(req, res) {
             res.json(docs);
         });   
     }
-});'
+});
 
-router.get('/sessionlist/:username', function(req, res) {
+router.get('/usersessionlist', function(req, res) {
+    console.log("test");
    var db = req.db;
-   var username = req.params.username;
+   var owner = req.cookies.username;
+   console.log(owner);
    var collection = db.get('sessionlist');
-   collection.find({owner:username}, {}, function(e, docs) {
+   collection.find({owner:owner}, {}, function(e, docs) {
       res.json(docs); 
    });
 });
@@ -51,7 +53,7 @@ router.post('/createsession', function(req, res) {
     collection.insert(newSession, function(err, result) {
         console.log(result);
         col = db.get('memberlist');
-        for (var i = 0; i < 8; i++) {
+        for (i = 0; i < 8; i++) {
             var newMember = {
                 'sid': req.body.sid,
                 'name': '',
@@ -75,5 +77,15 @@ router.delete('/deletesession/:id', function(req, res) {
     });
 });
 
+router.get('/userlist/:sid', function(req, res) {
+   var db = req.db;
+   var sid = req.params.sid;
+   
+   var collection = db.get('memberlist');
+   
+    collection.find({sid:sid}, {}, function(e, docs){
+        res.json(docs);
+    });  
+});
 
 module.exports = router;

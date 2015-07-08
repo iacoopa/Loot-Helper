@@ -1,9 +1,9 @@
 extends layout
 
-script.
-    user="#{user}";
+
 
 block content
+    script var user="#{user}";
     h1 Loot Helper
     if char 
         p Welcome, #{char}. view 
@@ -32,7 +32,7 @@ block content
                     button#btnCreateSession Create Session
             // /ADD USER
         // USER LIST
-        h2 Session List 
+        h2#header Session List 
         #sessionList
             table
                 thead

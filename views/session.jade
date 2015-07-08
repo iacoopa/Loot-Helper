@@ -3,20 +3,20 @@ extends layout
 block content
     h1 Loot Helper
     #wrapper
+    
         if user == owner
-            #createSession
-                h2 Add Member
-                fieldset
-                    input#inputMemberName(type='text', placeholder='Member name')
+            #modifySession
+                br
+                h2 Edit Session
                     br
-                    input#inputMemberLoot(type='text', placeholder='Loot')
+                    button#btnUpdate Save Changes
                     br
-                    button#btnAddMember Add Member
+                    button#btnDelete Delete Session
         h2 Members
-        #memberList
-            table
-                thead
-                    th Name
-                    th Loot
-                    th Remove
-                tbody
+            #memberList
+                table
+                    thead
+                        th Name
+                        th Loot
+                    tbody
+                        fieldset

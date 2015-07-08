@@ -15,9 +15,9 @@ router.post('/processlogin', function(req, res) {
        console.log(req.body);
 
        if (data[0].password == req.body.password) {
-           if (!req.cookies.username)
-                res.cookie('username', req.body.username, {maxAge:90000000000});
-           if (!req.cookies.charname)
+            res.clearCookie('username');
+            res.cookie('username', req.body.username, {maxAge:90000000000});
+            if (!req.cookies.charname)
                 res.cookie('charname', data[0].charname);
 
            res.send(
