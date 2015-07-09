@@ -28,18 +28,20 @@ $(document).ready(function() {
         });
     }
     populateUserTable();
+    setInterval(populateUserTable(), 15000);
     $('#btnUpdate').on('click', update);
 });
 
 function populateUserTable() {
+    $('#memberList table tbody').html('');
     var tableContent = '';
     id = window.location.href.split("/")[4];
-    
+    console.log(id);
     $.getJSON('/party/memberlist/' + id, function(data) {
         var i = 0;
         $.each(data, function() {
            i++;
-           tableContent += '<tr><td><input id="name' + i + '" input type="text" value="' + (typeof data['name'] != 'undefined' ? data['name'] : '') + '"></td><td><input id="loot' + i + '" type="text" value="' + (typeof data['loot'] != 'undefined' ? data['loot'] : '') + '"></td></tr>';
+           tableContent += '<tr><td><input _id="'+ this._id +'" id="name' + i + '" input type="text" value="' + (typeof this.name != 'undefined' ? this.name : '') + '"></td><td><input id="loot' + i + '" type="text" value="' + (typeof this.loot != 'undefined' ? this.loot : '') + '"></td></tr>';
         });
         $('#memberList table tbody').html(tableContent);
     });
@@ -124,27 +126,25 @@ function createUser(event) {
 function update(event) {
     event.preventDefault();
     
-    var dataToSend = {"data":[
-        {"1": [{"name": $("#name1").val()}, {"loot": $("#loot1").val()}]},
-        {"2": [{"name": $("#name2").val()}, {"loot": $("#loot2").val()}]},
-        {"3": [{"name": $("#name3").val()}, {"loot": $("#loot3").val()}]},
-        {"4": [{"name": $("#name4").val()}, {"loot": $("#loot4").val()}]},
-        {"5": [{"name": $("#name5").val()}, {"loot": $("#loot5").val()}]},
-        {"6": [{"name": $("#name6").val()}, {"loot": $("#loot6").val()}]},
-        {"7": [{"name": $("#name7").val()}, {"loot": $("#loot7").val()}]},
-        {"8": [{"name": $("#name8").val()}, {"loot": $("#loot8").val()}]}
-    ]}
+    var inputs = {data:
+        [{'_id': $('#name1').attr('_id'), 'name': $('#name1').val(), 'loot': $('#loot1').val()},
+        {'_id': $('#name2').attr('_id'), 'name': $('#name2').val(), 'loot': $('#loot2').val()},
+        {'_id': $('#name3').attr('_id'), 'name': $('#name3').val(), 'loot': $('#loot3').val()},
+        {'_id': $('#name4').attr('_id'), 'name': $('#name4').val(), 'loot': $('#loot4').val()},
+        {'_id': $('#name5').attr('_id'), 'name': $('#name5').val(), 'loot': $('#loot5').val()},
+        {'_id': $('#name6').attr('_id'), 'name': $('#name6').val(), 'loot': $('#loot6').val()},
+        {'_id': $('#name7').attr('_id'), 'name': $('#name7').val(), 'loot': $('#loot7').val()},
+        {'_id': $('#name8').attr('_id'), 'name': $('#name8').val(), 'loot': $('#loot8').val()}
+    ]};
     
-    console.log(dataToSend);
-    id = window.location.href.split("/")[4];
-    $.ajax({
-      type: 'POST',
-      data: dataToSend,
-      url: '/party/update/' + id,
-      dataType: 'JSON'
-    }).done(function(response) {
-        populateUserTable();
-    });
+    
+        $.ajax({
+            type: 'POST',
+            data: inputs,
+            url: '/party/update',
+            dataType: 'JSON'
+        });
+    
   
 };
 
